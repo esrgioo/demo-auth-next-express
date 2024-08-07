@@ -1,6 +1,12 @@
-import React from "react";
+"use client";
+
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logoutAction } from "@/redux/slices/userSlice";
+import Link from "next/link";
 
 const Navbar = () => {
+  const { id, name } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   return (
     <nav className="fixed top-0 w-full bg-transparent">
       <div className="container mx-auto px-4">
@@ -11,6 +17,14 @@ const Navbar = () => {
             <h3>Home</h3>
             <h3>Write</h3>
             <h3>Profile</h3>
+            {id ? (
+              <>
+                <Link href="/profile">{name}</Link>
+                <h3 onClick={() => dispatch(logoutAction())}>Logout</h3>
+              </>
+            ) : (
+              <Link href="/login">Login</Link>
+            )}
           </div>
         </div>
       </div>
