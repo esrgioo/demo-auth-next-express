@@ -2,32 +2,22 @@
 
 import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-interface RegisterArgs {
-  name: string;
+interface LoginPayload {
   email: string;
   password: string;
 }
 
-const useRegister = () => {
-  const router = useRouter();
+const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const register = async (payload: RegisterArgs) => {
+  const login = async (payload: LoginPayload) => {
     setIsLoading(true);
     try {
-      await axiosInstance.post("/api/auth/register", {
-        name: payload.name,
-        email: payload.email,
-        password: payload.password,
-      });
-
-      toast.success("register success");
-
-      router.push("/login");
+      await axiosInstance.post("/api/auth/login", payload);
+      toast.success("login success", { position: "top-center" });
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data || "Something went wrong!");
@@ -36,7 +26,8 @@ const useRegister = () => {
       setIsLoading(false);
     }
   };
-  return { register, isLoading };
+
+  return { login, isLoading };
 };
 
-export default useRegister;
+export default useLogin;
