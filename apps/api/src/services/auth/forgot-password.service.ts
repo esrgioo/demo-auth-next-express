@@ -22,7 +22,7 @@ export const forgotPasswordService = async (email: string) => {
     await transporter.sendMail({
       to: email,
       subject: 'Link Reset Password',
-      html: `<a href="${link}" target="_blank">Reset Password Here</a>`,
+      html: `<a href="${link}" target="_blank">Reset Password Here </a>`,
     });
 
     return {

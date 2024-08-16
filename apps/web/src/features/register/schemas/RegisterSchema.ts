@@ -3,8 +3,9 @@ import YupPassword from "yup-password";
 YupPassword(Yup);
 
 export const RegisterSchema = Yup.object().shape({
+  //penamaannya harus sama kayak di initialValues
   name: Yup.string().required("Name is required"),
-  email: Yup.string().email("Invalid name").required("Email is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
     .minLowercase(1)

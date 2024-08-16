@@ -1,6 +1,6 @@
 import Homepage from "@/features/home";
 
-const page = () => {
+const page = async () => {
   return <Homepage />;
 };
 

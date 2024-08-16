@@ -22,6 +22,22 @@ const user: User = {
   updatedAt: new Date(),
 };
 
+beforeAll(() => {
+  //ini bakalan dijalankan sebelum testing pertama dijalankan
+});
+
+afterAll(() => {
+  //ini bakalan dijalankan setelah testing pertama dijalankan
+});
+
+beforeEach(() => {
+  //ini bakalan dijalankan sebelum tiap test
+});
+
+afterEach(() => {
+  //ini bakalan dijalankan setelah tiap test
+});
+
 describe('POST /api/auth/register', () => {
   const { app } = new App();
   it('should register user successfully', async () => {

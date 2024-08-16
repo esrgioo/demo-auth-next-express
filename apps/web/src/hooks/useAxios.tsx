@@ -3,15 +3,16 @@
 import { axiosInstance } from "@/lib/axios";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
+import { signOut, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
 const useAxios = () => {
-  const { token } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
+  const session = useSession();
 
   useEffect(() => {
     const requestIntercept = axiosInstance.interceptors.request.use(
       (config) => {
+        const token = session.data?.user.token;
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -26,7 +27,7 @@ const useAxios = () => {
       (response) => response,
       (err) => {
         if (err?.response.status === 403) {
-          dispatch(logoutAction());
+          signOut();
         }
 
         return Promise.reject(err);
@@ -37,7 +38,7 @@ const useAxios = () => {
       axiosInstance.interceptors.request.eject(requestIntercept);
       axiosInstance.interceptors.response.eject(responseIntercept);
     };
-  }, [dispatch, token]);
+  }, [session.data?.user.token]);
 
   return { axiosInstance };
 };

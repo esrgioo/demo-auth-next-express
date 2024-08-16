@@ -1,29 +1,29 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logoutAction } from "@/redux/slices/userSlice";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Navbar = () => {
-  const { id, name } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
+  const session = useSession();
+
   return (
-    <nav className="fixed top-0 w-full bg-transparent">
+    <nav className="sticky top-0 bg-transparent">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-2">
           <h1 className="cursor-pointer text-xl font-bold">Logo</h1>
-
           <div className="flex cursor-pointer items-center gap-8 font-medium">
-            <h3>Home</h3>
+            <Link href="/">
+              <h3>Home</h3>
+            </Link>
             <h3>Write</h3>
             <h3>Profile</h3>
-            {id ? (
+            {session.data?.user.id ? (
               <>
-                <Link href="/profile">{name}</Link>
-                <h3 onClick={() => dispatch(logoutAction())}>Logout</h3>
+                <Link href="/profile">{session.data.user.name}</Link>
+                <h3 onClick={() => signOut()}>Logout</h3>
               </>
             ) : (
-              <Link href="/login">Login</Link>
+              <Link href="login">Login</Link>
             )}
           </div>
         </div>
