@@ -12,19 +12,20 @@ export default function StoreProvider({
 }) {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) {
+    // Create the store instance the first time this renders
     storeRef.current = makeStore();
   }
 
   return (
     <Provider store={storeRef.current}>
-      <PersistGate
+      {/* <PersistGate
         persistor={persistStore(storeRef.current)}
         loading={
-          <h1 className="mt-20 flex justify-center text-3xl">loading...</h1>
+          <h1 className="mt-20 flex justify-center text-3xl">Loading...</h1>
         }
-      >
-        {children}
-      </PersistGate>
+      > */}
+      {children}
+      {/* </PersistGate> */}
     </Provider>
   );
 }

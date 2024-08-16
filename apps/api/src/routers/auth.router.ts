@@ -16,6 +16,7 @@ export class AuthRouter {
     this.router.post('/register', this.authController.register);
     this.router.post('/login', this.authController.login);
     this.router.post('/forgot-password', this.authController.forgotPassword);
+    //harus pake verifyToken kalo gak res.locals nya gak bakal dapet
     this.router.patch(
       '/reset-password',
       verifyToken,

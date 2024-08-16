@@ -18,11 +18,15 @@ export const resetPasswordService = async (
 
     await prisma.user.update({
       where: { id: userId },
-      data: { password: hashedPassword },
+      data: {
+        password: hashedPassword,
+      },
     });
 
     return {
-      message: 'reset password success',
+      message: 'Reset password success',
     };
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };

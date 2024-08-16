@@ -8,10 +8,10 @@ import { useFormik } from "formik";
 import { RegisterSchema } from "./schemas/RegisterSchema";
 import useRegister from "@/hooks/api/auth/useRegister";
 import Link from "next/link";
+import { is } from "cypress/types/bluebird";
 
 const RegisterPage = () => {
-  const { register, isLoading } = useRegister();
-
+  const { mutateAsync: register, isPending } = useRegister();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -25,7 +25,7 @@ const RegisterPage = () => {
   });
 
   return (
-    <main className="flex h-screen items-center justify-center">
+    <main className="flex justify-center pt-20">
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle className="text-center">Sign Up</CardTitle>
@@ -40,29 +40,27 @@ const RegisterPage = () => {
                   type="text"
                   placeholder="Your name"
                   value={formik.values.name}
-                  onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
                 {!!formik.touched.name && !!formik.errors.name ? (
-                  <p className="text-xs text-red-900">{formik.errors.name}</p>
+                  <p className="text-xs text-red-500">{formik.errors.name}</p>
                 ) : null}
               </div>
-
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   name="email"
-                  type="email"
+                  type="Email"
                   placeholder="Your email"
                   value={formik.values.email}
-                  onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
                 {!!formik.touched.email && !!formik.errors.email ? (
-                  <p className="text-xs text-red-900">{formik.errors.email}</p>
+                  <p className="text-xs text-red-500">{formik.errors.email}</p>
                 ) : null}
               </div>
-
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <Input
@@ -70,23 +68,21 @@ const RegisterPage = () => {
                   type="password"
                   placeholder="Your password"
                   value={formik.values.password}
-                  onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
                 {!!formik.touched.password && !!formik.errors.password ? (
-                  <p className="text-xs text-red-900">
+                  <p className="text-xs text-red-500">
                     {formik.errors.password}
                   </p>
                 ) : null}
               </div>
             </div>
-
-            <Button className="mt-6 w-full" disabled={isLoading}>
-              {isLoading ? "Loading.." : "Submit"}
+            <Button className="mt-6 w-full" disabled={isPending}>
+              {isPending ? "Loading..." : "Submit"}
             </Button>
-
             <Link href="/login" className="mt-4 flex justify-center text-sm">
-              Don't have an account ? Login
+              Already have an account ? Login here
             </Link>
           </form>
         </CardContent>

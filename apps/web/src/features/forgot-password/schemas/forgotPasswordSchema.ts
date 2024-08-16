@@ -1,7 +1,6 @@
 import * as Yup from "yup";
-import YupPassword from "yup-password";
-YupPassword(Yup);
 
 export const ForgotPasswordSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid name").required("Email is required"),
+  //penamaannya harus sama kayak di initialValues
+  email: Yup.string().email("Invalid email").required("Email is required"),
 });

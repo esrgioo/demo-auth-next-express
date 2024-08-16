@@ -5,16 +5,16 @@ import { AxiosError } from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const userForgotPassword = () => {
+const useForgotPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const forgotPassword = async (email: string) => {
     setIsLoading(true);
     try {
       await axiosInstance.post("/auth/forgot-password", { email: email });
-      toast.success("send email succes, check your inbox");
+      toast.success("Send email success, please check your inbox");
     } catch (error) {
       if (error instanceof AxiosError) {
-        toast.error(error.response?.data || "Something went wrong!");
+        toast.error(error.response?.data || "Something wnt wrong!");
       }
     } finally {
       setIsLoading(false);
@@ -23,4 +23,4 @@ const userForgotPassword = () => {
   return { forgotPassword, isLoading };
 };
 
-export default userForgotPassword;
+export default useForgotPassword;

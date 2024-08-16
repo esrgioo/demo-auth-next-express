@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
   id: number;
-  name: String;
-  email: String;
+  name: string;
+  email: string;
   provider: Provider | null;
   token: string;
 }
@@ -21,10 +21,11 @@ const initialState: UserState = {
   token: "",
 };
 
-export const userSLice = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    //by default nerima 2 paramater: state, action
     loginAction: (state, action: PayloadAction<UserState>) => {
       state.id = action.payload.id;
       state.name = action.payload.name;
@@ -42,5 +43,5 @@ export const userSLice = createSlice({
   },
 });
 
-export const { loginAction, logoutAction } = userSLice.actions;
-export default userSLice.reducer;
+export const { loginAction, logoutAction } = userSlice.actions;
+export default userSlice.reducer;
