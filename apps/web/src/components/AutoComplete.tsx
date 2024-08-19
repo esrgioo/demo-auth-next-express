@@ -16,9 +16,9 @@ export const AutoComplete = () => {
 
   const { axiosInstance } = useAxios();
 
-  const getEventsOptions = async (inputText: string) => {
+  const getBlogsOptions = async (inputText: string) => {
     const { data } = await axiosInstance.get("/blogs", {
-      params: { Search: inputText, take: 20 },
+      params: { search: inputText, take: 20 },
     });
 
     return data?.data.map((blog: Blog) => ({
@@ -29,7 +29,7 @@ export const AutoComplete = () => {
 
   const loadOptions = debounce(
     (inputText: string, callback: (option: BlogOption[]) => void) => {
-      getEventsOptions(inputText).then((option) => callback(option));
+      getBlogsOptions(inputText).then((option) => callback(option));
     },
     500,
   );
@@ -39,7 +39,7 @@ export const AutoComplete = () => {
       placeholder="Search blog"
       className="mx-auto max-w-[600px]"
       loadOptions={loadOptions}
-      onChange={(event) => router.push(`/events/${event?.value}`)}
+      onChange={(event) => router.push(`/blogs/${event?.value}`)}
     />
   );
 };

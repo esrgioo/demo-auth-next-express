@@ -28,6 +28,7 @@ const Pagination: FC<PaginationProps> = ({
       pageLinkClassName="p-2 rounded-lg"
       activeLinkClassName="bg-black text-white"
       onPageChange={onPageChange}
+      forcePage={Number(page) - 1}
     />
   );
 };
